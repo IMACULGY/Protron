@@ -1,0 +1,7 @@
+for future reference
+1. node server.js for the server
+2. make sure nginx is running
+ - start nginx (?)
+3. can be accessed outside local network
+@ protron.csproject.org
+ - (inside local :8001)
