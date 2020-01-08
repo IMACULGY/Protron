@@ -82,22 +82,22 @@ function createMultiplayerScene(color) {
     var speed = 0;
     scene.registerBeforeRender(function () {
         if (scene.isReady()) {
-            if (go && speed < 1) {
-                speed += 0.05;
+            if (go && speed < 5) {
+                speed += 0.25;
 
             } else if (speed > 0 && stop) {
                 speed -= 0.5;
             } else if (speed > 0 && !stop) {
-                speed -= 0.05;
+                speed -= 0.2;
             }
             else if (Math.round(speed) == 0) {
                 speed = 0;
 
             }
             if (turnLeft) {
-                player1.rotation.y -= 0.01;
+                player1.rotation.y -= 0.1;
             } else if (turnRight) {
-                player1.rotation.y += 0.01;
+                player1.rotation.y += 0.1;
             }
 
             player1.position.x -= Math.cos(player1.rotation.y) * speed;
