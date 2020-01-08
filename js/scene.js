@@ -22,9 +22,9 @@ function createMultiplayerScene(color) {
     var light = new BABYLON.DirectionalLight("Dir0", new BABYLON.Vector3(0, -1, 0), scene);
 
 
-    var ground = BABYLON.Mesh.CreateGround("ground", 1000, 1000, 1, scene, false);
+    var ground = BABYLON.Mesh.CreateGround("ground", 2500, 2500, 1, scene, false);
     ground.material = new BABYLON.StandardMaterial("ground", scene);
-    ground.material.diffuseColor = new BABYLON.Color3(0.529, 0.808, 0.922)
+    ground.material.diffuseColor = new BABYLON.Color3(0.529, 0.808, 0.567)
     ground.material.specularColor = new BABYLON.Color3(0, 0, 0)
     ground.position.y = -2;
 

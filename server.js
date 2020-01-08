@@ -40,9 +40,9 @@ io.on('connection', function (socket) {
         var i;
         for (i = 0; i < 50; i++) {
             var c = {
-                x: Math.floor(Math.random() * 1001) - 500,
+                x: Math.floor(Math.random() * 2501) - 1250,
                 y: 2.5,
-                z: Math.floor(Math.random() * 1001) - 500
+                z: Math.floor(Math.random() * 2501) - 1250
             }
             coords.push(c);
         }

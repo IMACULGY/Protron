@@ -64,10 +64,10 @@ function gameOver(result) {
 
 function createBorder(scene) {
     var meshes = [];
-    var box = BABYLON.Mesh.CreateBox("box", 10.0, scene);
+    var box = BABYLON.Mesh.CreateBox("box", 100.0, scene);
     box.scaling.x = 0.2
-    box.scaling.z = 100
-    box.position.x = 500
+    box.scaling.z = 25
+    box.position.x = 1250
 
     box2 = box.clone();
     box2.position.x = -box.position.x
@@ -75,7 +75,7 @@ function createBorder(scene) {
     box3 = box.clone();
     box3.rotation.y = Math.PI / 2
     box3.position.x = 0
-    box3.position.z = 499, 5;
+    box3.position.z = 1249, 5;
 
     box4 = box3.clone();
     box4.position.z = -box3.position.z
