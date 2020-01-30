@@ -14,7 +14,7 @@ function createMultiplayerScene(color) {
     engine = new BABYLON.Engine(canvas, true);
     scene = new BABYLON.Scene(engine);
 
-    player1 = createPlayer(scene, color, null);
+    player1 = createPlayerBike(scene, color, null);
 
     var camera = getFollowCamera(scene, player1);
     camera.attachControl(canvas, true);

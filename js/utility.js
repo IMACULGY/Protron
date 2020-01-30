@@ -35,6 +35,7 @@ function createPlayer(scene, color, data) {
     var mat = new BABYLON.StandardMaterial("mat", scene);
     mat.diffuseColor = color;
     mat.backFaceCulling = false;
+	
     var tunk = BABYLON.Mesh.MergeMeshes(meshes);
     tunk.name = "tunk";
     tunk.material = mat;     
@@ -54,6 +55,37 @@ function createPlayer(scene, color, data) {
     tunk.layerMask = 2;
     return tunk;
 };
+
+function createPlayerBike(scene, color, data) {
+	var bik;
+	BABYLON.SceneLoader.ImportMesh("", "model/", "108.glb", scene, function (meshes) {
+            scene.createDefaultCameraOrLight(true, true, true);
+            bik = BABYLON.Mesh.MergeMeshes(meshes);
+        });	
+
+	bik.scaling = new BABYLON.Vector3(0.5, 0.5, 0.5)
+	bik.layerMask = 2;
+
+	var mat = new BABYLON.StandardMaterial("mat", scene);
+    	mat.diffuseColor = color;
+    	mat.backFaceCulling = false;
+	bik.material = mat;
+
+	if (data) {
+        	bik.position.y = data.y;
+        	bik.position.x = -data.x;
+        	bik.position.z = data.z;
+        	bik.rotation.y = Math.PI
+    	} 
+	else {
+        	bik.position.y = -1;
+        	bik.position.x = 400;
+        	bik.position.z = 0;
+        	bik.rotation.y = 0
+    	}	
+
+	return bik;
+}
 
 function gameOver(result) {
     engine.stopRenderLoop();
