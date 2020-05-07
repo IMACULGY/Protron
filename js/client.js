@@ -19,15 +19,18 @@ var playerColor;
 function initSocket() {
     //document.getElementById("play").style.setProperty("visibility", "hidden");
     document.getElementById("play").style.visibility = "hidden";
+    document.getElementById("playerScore").style.visibility = "hidden";
+    document.getElementById("enemyScore").style.visibility = "hidden";
     socket = null;
     socket = io().connect();
     socket.on('connect', function () {
         playerColor = new BABYLON.Color3(Math.random(), Math.random(), Math.random());
-        startBabylonEngine(playerColor); //on baylonMultiplayer.js
+        startBabylonEngine(playerColor); //on scene.js
         var playerData = {
             x: player1.position.x,
             y: player1.position.y,
             z: player1.position.z,
+            rot: player1.rotation.y,
             color: playerColor
         }
         socket.emit('start', playerData);
@@ -43,13 +46,14 @@ function initSocket() {
             x: player1.position.x,
             y: player1.position.y,
             z: player1.position.z,
+            rot: player1.rotation.y,
             color: playerColor
         }
         socket.emit('handshake2', playerData);
     });
 
     socket.on('handshake3', function (data) {
-        player2 = createPlayer(scene, data.color, data);       
+        player2 = createPlayer(scene, data.color, data);
     });
 
     socket.on('setSpheres', function (coord) {
@@ -62,9 +66,14 @@ function initSocket() {
         player2.position.z = data.z;
 
         if (data.left) {
-            player2.rotation.y -= 0.01;
+            player2.rotation.y -= 0.1;
+            player2.rotation.x = -1;
         } else if (data.right) {
-            player2.rotation.y += 0.01;
+            player2.rotation.y += 0.1;
+            player2.rotation.x = 1;
+        }
+        else {
+            player2.rotation.x = 0;
         }
 
         player2.position.x -= Math.cos(player2.rotation.y) * data.speed;

@@ -14,7 +14,7 @@ function createMultiplayerScene(color) {
     engine = new BABYLON.Engine(canvas, true);
     scene = new BABYLON.Scene(engine);
 
-    player1 = createPlayerBike(scene, color, null);
+    player1 = createPlayer(scene, color, null);
 
     var camera = getFollowCamera(scene, player1);
     camera.attachControl(canvas, true);
@@ -42,7 +42,7 @@ function createMultiplayerScene(color) {
 
         //W --> 87  ||  up      --> 38
         //S --> 83  ||  back    --> 40
-        //D --> 68  ||  right   --> 39      
+        //D --> 68  ||  right   --> 39
         //A --> 65  ||  left    --> 37
 
         //W
@@ -96,13 +96,18 @@ function createMultiplayerScene(color) {
             }
             if (turnLeft) {
                 player1.rotation.y -= 0.1;
+                player1.rotation.x = -1;
             } else if (turnRight) {
                 player1.rotation.y += 0.1;
+                player1.rotation.x = 1
+            }
+            else {
+                player1.rotation.x = 0
             }
 
             player1.position.x -= Math.cos(player1.rotation.y) * speed;
             player1.position.z += Math.sin(player1.rotation.y) * speed;
-            
+
             if (player2 && update) {
                 coord = {
                     x: -player1.position.x,
@@ -118,11 +123,12 @@ function createMultiplayerScene(color) {
     });
     return scene;
 }
- 
+
 function startBabylonEngine(color) {
     if (BABYLON.Engine.isSupported()) {
         var scene = createMultiplayerScene(color);
         engine.displayLoadingUI();
+        engine.enableOfflineSupport = false;
         scene.executeWhenReady(function () {
             engine.runRenderLoop(function () {
                 engine.hideLoadingUI();
@@ -139,7 +145,7 @@ function startBabylonEngine(color) {
 
 
 function setSpheres(coord) {
-    player1.actionManager = new BABYLON.ActionManager(scene); 
+    player1.actionManager = new BABYLON.ActionManager(scene);
 
     for (i = 0; i < 50; i++) {
         var sphere = BABYLON.Mesh.CreateSphere("sphere"+i, 5.0, 5.0, scene);

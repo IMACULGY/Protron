@@ -1,14 +1,14 @@
 ﻿function getFollowCamera(scene, target) {
     var camera = new BABYLON.FollowCamera("myFollowCamera", new BABYLON.Vector3(490, 10, 0), scene);
-    camera.heightOffset = 30;       
-    camera.radius = 80;             
-    camera.rotationOffset = 90;     
-    camera.cameraAcceleration = 0.05 
+    camera.heightOffset = 30;
+    camera.radius = 80;
+    camera.rotationOffset = 90;
+    camera.cameraAcceleration = 0.05
     camera.target = target;
     return camera;
 };
 
-function createPlayer(scene, color, data) {
+function createPlayerT(scene, color, data) {
     var meshes = [];
     var cylinder = new BABYLON.Mesh.CreateCylinder("cylinder", 10, 6, 6, 6, 1, scene, false);
     cylinder.rotation.x = Math.PI / 2;
@@ -35,10 +35,10 @@ function createPlayer(scene, color, data) {
     var mat = new BABYLON.StandardMaterial("mat", scene);
     mat.diffuseColor = color;
     mat.backFaceCulling = false;
-	
+
     var tunk = BABYLON.Mesh.MergeMeshes(meshes);
     tunk.name = "tunk";
-    tunk.material = mat;     
+    tunk.material = mat;
     if (data) {
         tunk.position.y = data.y;
         tunk.position.x = -data.x;
@@ -56,36 +56,53 @@ function createPlayer(scene, color, data) {
     return tunk;
 };
 
-function createPlayerBike(scene, color, data) {
+
+function createPlayer(scene, color, data) {
+	//return createPlayerT(scene, color, data); //uncomment this for tanks
+
+    console.log('this works numero uno');
+
 	var bik;
-	BABYLON.SceneLoader.ImportMesh("", "model/", "108.glb", scene, function (meshes) {
-            scene.createDefaultCameraOrLight(true, true, true);
-            bik = BABYLON.Mesh.MergeMeshes(meshes);
-        });	
 
-	bik.scaling = new BABYLON.Vector3(0.5, 0.5, 0.5)
-	bik.layerMask = 2;
+	BABYLON.SceneLoader.ImportMesh("","https://raw.githubusercontent.com/IMACULGY/Protron/master/assets/", "bike.glb", scene, function (meshes) {
+            //scene.createDefaultCameraOrLight(true, true, true);
 
-	var mat = new BABYLON.StandardMaterial("mat", scene);
-    	mat.diffuseColor = color;
-    	mat.backFaceCulling = false;
-	bik.material = mat;
+            console.log('this works');
 
-	if (data) {
-        	bik.position.y = data.y;
-        	bik.position.x = -data.x;
-        	bik.position.z = data.z;
-        	bik.rotation.y = Math.PI
-    	} 
-	else {
-        	bik.position.y = -1;
-        	bik.position.x = 400;
-        	bik.position.z = 0;
-        	bik.rotation.y = 0
-    	}	
+            var mat = new BABYLON.StandardMaterial("mat", scene);
+            	mat.diffuseColor = color;
+            	mat.backFaceCulling = false;
 
-	return bik;
+            for(var i = 0; i < meshes.length;i++)
+            {
+                meshes[i].material = mat;
+            }
+
+            bik = BABYLON.Mesh.MergeMeshes(container.meshes);
+
+            bik.scaling = new BABYLON.Vector3(0.5, 0.5, 0.5)
+        	bik.layerMask = 2;
+
+        	if (data) {
+                	bik.position.y = data.y;
+                	bik.position.x = -data.x;
+                	bik.position.z = data.z;
+                	bik.rotation.y = Math.PI
+            	}
+        	else {
+                	bik.position.y = -1;
+                	bik.position.x = 400;
+                	bik.position.z = 0;
+                	bik.rotation.y = 0
+            	}
+
+        	return bik;
+        });
+
+
+
 }
+
 
 function gameOver(result) {
     engine.stopRenderLoop();

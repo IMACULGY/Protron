@@ -5,11 +5,11 @@ var io = require('socket.io').listen(server);
 
 app.use(express.static(__dirname + '/'));
 
-var roomQueue = [];     
+var roomQueue = [];
 var roomQueueFull = [];
 var counterRooms = 0;
 //key:value  --> key:client , value:room's client
-var usersConnected = {}; 
+var usersConnected = {};
 
 
 io.on('connection', function (socket) {
@@ -20,10 +20,10 @@ io.on('connection', function (socket) {
         usersConnected[socket.id] = roomName;
 
         if (roomQueue[0]) {
-            var room = roomQueue.shift();         
+            var room = roomQueue.shift();
             var clientsInRoom = io.sockets.adapter.rooms[room];
             if (clientsInRoom.length == 1) {
-                roomQueueFull.push(room);                
+                roomQueueFull.push(room);
             }
             usersConnected[socket.id] = room;
             socket.join(room);
@@ -36,6 +36,8 @@ io.on('connection', function (socket) {
 
     socket.on('handshake2', function (playerData) {
         socket.broadcast.to(usersConnected[socket.id]).emit('handshake3', playerData);
+
+       /*
         var coords = [];
         var i;
         for (i = 0; i < 50; i++) {
@@ -51,7 +53,8 @@ io.on('connection', function (socket) {
             coord.x = -coord.x;
             coord.z = -coord.z;
         });
-        socket.emit('setSpheres', coords);        
+        socket.emit('setSpheres', coords);
+        */
     });
 
     socket.on('sendUpdate', function (data) {
@@ -86,7 +89,7 @@ io.on('connection', function (socket) {
 });
 
 //port was 8001 before, localhost
-server.listen(8001, '0.0.0.0', function () {
+server.listen(8080, '0.0.0.0', function () {
     var host = server.address().address
     var port = server.address().port
     console.log("\nServer running http://%s:%s", host, port)
