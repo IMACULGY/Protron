@@ -1,4 +1,4 @@
-﻿function getFollowCamera(scene, target) {
+function getFollowCamera(scene, target) {
     var camera = new BABYLON.FollowCamera("myFollowCamera", new BABYLON.Vector3(490, 10, 0), scene);
     camera.heightOffset = 30;
     camera.radius = 80;
@@ -64,10 +64,13 @@ function createPlayer(scene, color, data) {
 
 	var bik;
 
-	BABYLON.SceneLoader.ImportMesh("","https://raw.githubusercontent.com/IMACULGY/Protron/master/assets/", "bike.glb", scene, function (meshes) {
+    // try {
+	BABYLON.SceneLoader.LoadAssetContainer("https://raw.githubusercontent.com/IMACULGY/Protron/master/assets/", "bike.glb", scene, function (assets) {
             //scene.createDefaultCameraOrLight(true, true, true);
 
             console.log('this works');
+
+            var meshes = assets.meshes;
 
             var mat = new BABYLON.StandardMaterial("mat", scene);
             	mat.diffuseColor = color;
@@ -78,7 +81,7 @@ function createPlayer(scene, color, data) {
                 meshes[i].material = mat;
             }
 
-            bik = BABYLON.Mesh.MergeMeshes(container.meshes);
+            bik = BABYLON.Mesh.MergeMeshes(meshes);
 
             bik.scaling = new BABYLON.Vector3(0.5, 0.5, 0.5)
         	bik.layerMask = 2;
@@ -98,7 +101,8 @@ function createPlayer(scene, color, data) {
 
         	return bik;
         });
-
+    // }
+    // catch (error) {console.error(error);}
 
 
 }

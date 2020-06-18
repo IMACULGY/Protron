@@ -1,4 +1,4 @@
-﻿//GLOBAL VARIABLES on scene.js
+//GLOBAL VARIABLES on scene.js
 /*
 var data;
 var player1;
@@ -19,8 +19,7 @@ var playerColor;
 function initSocket() {
     //document.getElementById("play").style.setProperty("visibility", "hidden");
     document.getElementById("play").style.visibility = "hidden";
-    document.getElementById("playerScore").style.visibility = "hidden";
-    document.getElementById("enemyScore").style.visibility = "hidden";
+    document.getElementById("protron").style.visibility = "hidden";
     socket = null;
     socket = io().connect();
     socket.on('connect', function () {

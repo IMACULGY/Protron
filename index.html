@@ -1,11 +1,12 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>Seriously Tron</title>
 	<meta charset="utf-8" />
     <link href="style/style.css" rel="stylesheet" />
-    <script src="lib/babylon2.4.js"></script>
+     <script src="lib/babylons.js"></script>
+    <!-- <script src="https://preview.babylonjs.com/babylon.js"></script> -->
     <script src="lib/socket.io-1.4.5.js"></script>
     <script src="js/utility.js"></script>
     <script src="js/client.js"></script>
@@ -27,6 +28,7 @@
         </section>
         <button id="play" onclick="initSocket()">Play</button>
         <canvas id="multiplayerCanvas" width=100% height=100%></canvas>
+        <p id="protron"></p>
     </section>
 </body>
 </html>
@@ -34,4 +36,7 @@
 <script>
     document.getElementById("playerScore").textContent = "You : " + playerScore + "/25";
     document.getElementById("enemyScore").textContent = "Enemy : " + enemyScore + "/25";
+    document.getElementById("playerScore").style.visibility = "hidden";
+    document.getElementById("enemyScore").style.visibility = "hidden";
+    document.getElementById("protron").textContent = "PROTRON!";
 </script>

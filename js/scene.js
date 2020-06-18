@@ -1,4 +1,4 @@
-﻿//var data;
+//var data;
 var player1;
 var player2;
 var canvas;
@@ -15,6 +15,19 @@ function createMultiplayerScene(color) {
     scene = new BABYLON.Scene(engine);
 
     player1 = createPlayer(scene, color, null);
+
+    //trail stuff
+
+    var trail = new BABYLON.TrailMesh('new', player1, scene, .5, 60, true);
+
+    var sourceMat = new BABYLON.StandardMaterial('sourceMat', scene);
+    //sourceMat.emissiveColor =
+    sourceMat.diffuseColor = color;
+    sourceMat.specularColor = new BABYLON.Color3.Black();
+
+    trail.material = sourceMat;
+
+    //camera stuff
 
     var camera = getFollowCamera(scene, player1);
     camera.attachControl(canvas, true);
